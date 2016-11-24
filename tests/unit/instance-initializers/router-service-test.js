@@ -55,12 +55,12 @@ test('ensure register is called for 1.13', function(assert) {
   }
   let register = sinon.spy();
   let appInstance = {
-      container: {
-          lookup: sinon.stub().returns({}),
-      },
-      application: {
-          register: register
-      }
+    container: {
+      lookup: sinon.stub().returns({}),
+    },
+    application: {
+      register: register
+    }
   };
   initialize(appInstance);
   assert.ok(register.calledOnce);
@@ -74,11 +74,8 @@ test('ensure register is called for 2.x', function(assert) {
   }
   let register = sinon.spy();
   let appInstance = {
-      lookup: sinon.stub().returns({}),
-      register: register,
-      application: {
-          hasRegistration: sinon.stub().returns({})
-      }
+    lookup: sinon.stub().returns({}),
+    register: register
   };
   initialize(appInstance);
   assert.ok(register.calledOnce);
