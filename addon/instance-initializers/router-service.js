@@ -10,15 +10,19 @@ export function initialize(appInstance) {
 
   let { application } = appInstance;
   let fullName = 'service:router';
-  let router = lookupSource.lookup('router:main');
-  let registerOptions = { singleton: true, instantiate: false };
+  
+  let registerSource;
+
   // use application for ember 1.13
   if (application.hasRegistration) {
-    appInstance.register(fullName, router, registerOptions);
+    registerSource = appInstance;
   } else {
-    application.register(fullName, router, registerOptions);
+    registerSource = application;
   }
 
+  let router = lookupSource.lookup('router:main');
+
+  registerSource.register(fullName, router, { singleton: true, instantiate: false });
 }
 
 export default {
