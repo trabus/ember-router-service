@@ -47,16 +47,37 @@ test('doesn\'t error when run multiple times (fastboot support)', function(asser
   assert.ok(this.appInstance.hasRegistration('service:router'));
 });
 
-test('ensure register is called for 1.13 and 2.x', function(assert) {
+test('ensure register is called for 1.13', function(assert) {
+  if (this.appInstance.hasRegistration) {
+    // skip fastboot check if ember 1.13
+    assert.ok(true);
+    return;
+  }
   let register = sinon.spy();
   let appInstance = {
-      lookup: sinon.stub().returns({}),
-      register: register,
       container: {
           lookup: sinon.stub().returns({}),
       },
       application: {
           register: register
+      }
+  };
+  initialize(appInstance);
+  assert.ok(register.calledOnce);
+});
+
+test('ensure register is called for 2.x', function(assert) {
+  if (!this.appInstance.hasRegistration) {
+    // skip fastboot check if ember 1.13
+    assert.ok(true);
+    return;
+  }
+  let register = sinon.spy();
+  let appInstance = {
+      lookup: sinon.stub().returns({}),
+      register: register,
+      application: {
+          hasRegistration: sinon.stub().returns({})
       }
   };
   initialize(appInstance);
