@@ -49,25 +49,30 @@ test('doesn\'t error when run multiple times (fastboot support)', function(asser
 
 test('ensure register is called for 1.13', function(assert) {
   let register = sinon.spy();
+
   let appInstance = {
     container: {
       lookup: sinon.stub().returns({}),
     },
     application: {
-      register: register
+      register
     }
   };
+
   initialize(appInstance);
+
   assert.ok(register.calledOnce);
 });
 
 test('ensure register is called for 2.x', function(assert) {
-
   let register = sinon.spy();
+
   let appInstance = {
     lookup: sinon.stub().returns({}),
-    register: register
+    register
   };
+
   initialize(appInstance);
+
   assert.ok(register.calledOnce);
 });
